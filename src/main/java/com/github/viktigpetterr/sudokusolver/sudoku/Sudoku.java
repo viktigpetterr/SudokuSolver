@@ -1,17 +1,17 @@
+package com.github.viktigpetterr.sudokusolver.sudoku;
 
 /**
  * Describes a sudoku in shape of a Integer matrix with 9x9 squares. Class also
  * include solving-methods for the sudoku and other relevant methods.
  *
- * @author Diocles1
+ * @author viktigpetterr
  */
 public class Sudoku {
-    private int[][] matrix;
+
+    private final int[][] matrix;
 
     /**
      * Constructs a sudoku board in shape of a Integer matrix with 9x9 squares.
-     *
-     * @return Nothing is returned.
      */
     public Sudoku() {
         matrix = new int[9][9];
@@ -36,7 +36,6 @@ public class Sudoku {
      * @param col   - specifies column for which the value shall be set in the
      *              matrix.
      * @param value - The value which is to be set in the matrix.
-     * @return Nothing is returned.
      */
     public void setValue(int row, int col, int value) {
         matrix[row][col] = value;
@@ -44,8 +43,6 @@ public class Sudoku {
 
     /**
      * Clears all Integers in the matrix and replace them with zeros.
-     *
-     * @return Nothing is returned.
      */
     public void clear() {
         for (int i = 0; i < matrix.length; i++) {

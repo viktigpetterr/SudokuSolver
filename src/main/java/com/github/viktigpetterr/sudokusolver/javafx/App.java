@@ -1,3 +1,6 @@
+package com.github.viktigpetterr.sudokusolver.javafx;
+
+import com.github.viktigpetterr.sudokusolver.sudoku.Sudoku;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,9 +20,9 @@ import javafx.stage.Stage;
  *
  * @author viktigpetterr
  */
-public class Graphics extends Application {
+public class App extends Application {
 
-    private Sudoku sudoku = new Sudoku();
+    private final Sudoku sudoku = new Sudoku();
 
     /**
      * Adds TextField type to the specific TilePane in a sudoku-pattern.

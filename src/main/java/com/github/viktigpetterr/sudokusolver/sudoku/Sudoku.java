@@ -10,11 +10,14 @@ public class Sudoku {
 
     private final int[][] matrix;
 
+    private static final int DIMENSION = 9;
+    private static final int UNSET = 0;
+
     /**
      * Constructs a sudoku board in shape of a Integer matrix with 9x9 squares.
      */
     public Sudoku() {
-        matrix = new int[9][9];
+        matrix = new int[DIMENSION][DIMENSION];
     }
 
     /**
@@ -42,12 +45,19 @@ public class Sudoku {
     }
 
     /**
+     * @return the dimension of the matrix.
+     */
+    public int dimension() {
+        return DIMENSION;
+    }
+
+    /**
      * Clears all Integers in the matrix and replace them with zeros.
      */
     public void clear() {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                matrix[i][j] = 0;
+                matrix[i][j] = UNSET;
             }
         }
     }
@@ -56,25 +66,19 @@ public class Sudoku {
      * Checks if the number(num) already exist in the specific column, row or
      * square.
      */
-    private boolean numIsLegal(int row, int col, int num) {
-        // Check the column.
-        for (int k = 0; k < 9; ++k) {
-            if (num == matrix[k][col]) {
-                return false;
-            }
-        }
-        // Check the row.
-        for (int k = 0; k < 9; ++k) {
-            if (num == matrix[row][k]) {
+    public boolean numIsLegal(int row, int col, int num) {
+        // Check the column and the row.
+        for (int i = 0; i < DIMENSION; ++i) {
+            if (num == matrix[row][i] || num == matrix[i][col]) {
                 return false;
             }
         }
         // Check the square.
         int boxRow = (row / 3) * 3;
         int boxCol = (col / 3) * 3;
-        for (int k = 0; k < 3; ++k) {
-            for (int m = 0; m < 3; ++m) {
-                if (num == matrix[boxRow + k][boxCol + m]) {
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                if (num == matrix[boxRow + i][boxCol + j]) {
                     return false;
                 }
             }
@@ -83,27 +87,38 @@ public class Sudoku {
     }
 
     /**
-     * Backtracking method that checks if the current values in the matrix is
-     * legal according to Sudoku. rules.
+     * Checks if the current values in the matrix are
+     * legal according to Sudoku rules.
+     *
+     * @return Returns true if the current values in the matrix are legal
+     * according to Sudoku rules. Otherwise false.
+     */
+    public boolean checkSudoku() {
+        return checkSudoku(0, 0);
+    }
+
+    /**
+     * Backtracking method that checks if the current values in the matrix are
+     * legal according to Sudoku rules.
      *
      * @param row - The row where the check will start.
      * @param col - The column where the check will start.
      * @return Returns true if the current values in the matrix are legal
      * according to Sudoku rules. Otherwise false.
      */
-    public boolean checkSudoku(int row, int col) {
-        if (row == 9) {
+    private boolean checkSudoku(int row, int col) {
+        if (row == DIMENSION) {
             row = 0;
             col++;
-            if (col == 9) {
+            if (col == DIMENSION) {
                 return true; // All places in the matrix has been checked.
             }
         }
-        if (matrix[row][col] == 0) {
+        if (matrix[row][col] == UNSET) {
             return checkSudoku(row + 1, col);
         }
         int current = matrix[row][col];
-        matrix[row][col] = 0;
+        matrix[row][col] = UNSET;
         if (numIsLegal(row, col, current)) {
             if (checkSudoku(row + 1, col)) {
                 matrix[row][col] = current;
@@ -116,6 +131,15 @@ public class Sudoku {
     }
 
     /**
+     * Method for solving the Matrix according to Sudoku rules.
+     *
+     * @return Returns true if the Sudoku has been solved according to Sudoku
+     * rules. Otherwise false.
+     */
+    public boolean solve() {
+        return solve(0, 0);
+    }
+    /**
      * Backtracking method for solving the Matrix according to Sudoku rules.
      *
      * @param row - The row where the solving shall begin.
@@ -123,20 +147,24 @@ public class Sudoku {
      * @return Returns true if the Sudoku has been solved according to Sudoku
      * rules. Otherwise false.
      */
-
     public boolean solve(int row, int col) {
-        if (row == 9) {
+        if (!checkSudoku(row, col))  {
+            return false;
+        }
+
+        if (row == DIMENSION) {
             row = 0;
             col++;
-            if (col == 9) {
+            if (col == DIMENSION) {
                 return true; // All places in the matrix has been checked.
             }
         }
-        if (matrix[row][col] != 0) {
+
+        if (matrix[row][col] != UNSET) {
             return solve(row + 1, col);
         }
 
-        for (int num = 1; num <= 9; num++) {
+        for (int num = 1; num <= DIMENSION; num++) {
             if (numIsLegal(row, col, num)) {
                 matrix[row][col] = num;
                 if (solve(row + 1, col)) {
@@ -144,7 +172,7 @@ public class Sudoku {
                 }
             }
         }
-        matrix[row][col] = 0; // reset on backtrack
+        matrix[row][col] = UNSET; // reset on backtrack
         return false;
     }
 }

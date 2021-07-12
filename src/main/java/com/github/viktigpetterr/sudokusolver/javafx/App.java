@@ -145,18 +145,8 @@ public class App extends Application {
         solve.setDefaultButton(true);
         solve.setStyle("-fx-base: #82e584;");
         solve.setOnAction(event -> {
-            if (sudoku.checkSudoku(0, 0)) {
-
-                if (!sudoku.solve(0, 0)) {
-                    Alert alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Notification");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Sudoku is unsolvable!");
-                    alert.showAndWait();
-                } else {
-                    rebuildSolvedSudokuField(tilePane, sudoku);
-
-                }
+            if (sudoku.solve()) {
+                rebuildSolvedSudokuField(tilePane, sudoku);
             } else {
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Notification");

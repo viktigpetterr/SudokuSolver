@@ -1,5 +1,6 @@
 package com.github.viktigpetterr.sudokusolver.javafx;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 
 /**
@@ -9,6 +10,21 @@ import javafx.scene.control.TextField;
  * @author viktigpetterr
  */
 public class OneNumberTextField extends TextField {
+
+    private static final String DARK_STYLE = "-fx-background-color: #8c8c8c;";
+
+    public OneNumberTextField(boolean styled) {
+        this.setMaxSize(40, 40);
+        this.setMinSize(40, 40);
+        this.setAlignment(Pos.CENTER);
+        if (styled) {
+            this.setStyle(DARK_STYLE);
+        }
+    }
+
+    public void setNumber(String number) {
+        this.textProperty().set(number);
+    }
 
     /**
      * Overrides replaceText(...) in TextInputControl.

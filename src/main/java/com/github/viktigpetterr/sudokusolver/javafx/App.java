@@ -24,119 +24,20 @@ public class App extends Application {
 
     private final Sudoku sudoku = new Sudoku();
 
-    /**
-     * Adds TextField type to the specific TilePane in a sudoku-pattern.
-     */
-    private void newSudokuField(TilePane tilePane, Sudoku sudoku) {
-
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                TextField numField = new OneNumberTextField();
-                numField.setMaxSize(40, 40);
-                numField.setMinSize(40, 40);
-                numField.setAlignment(Pos.CENTER);
-
-                int i2 = i;
-                int j2 = j;
-                if (j < 3 && i < 3) {
-                    numField.setStyle("-fx-background-color: #8c8c8c;");
-                }
-                if (j < 3 && i > 5) {
-                    numField.setStyle("-fx-background-color: #8c8c8c;");
-                }
-                if (j > 2 && j < 6 && i > 2 && i < 6) {
-                    numField.setStyle("-fx-background-color: #8c8c8c;");
-
-                }
-                if (j > 5 && i < 3) {
-                    numField.setStyle("-fx-background-color: #8c8c8c;");
-                }
-                if (j > 5 && i > 5) {
-                    numField.setStyle("-fx-background-color: #8c8c8c;");
-                }
-
-                numField.textProperty().addListener((observable, oldValue, newValue) -> {
-                    try {
-                        Integer.parseInt(newValue);
-                    } catch (NumberFormatException e) {
-                        newValue = "0";
-                    }
-                    sudoku.setValue(i2, j2, Integer.parseInt(newValue));
-                });
-                tilePane.getChildren().add(numField);
-            }
-        }
-
-    }
-
-    /**
-     * Clears the specific TilePane and then adds TextField type to the specific
-     * TilePane in a sudoku-pattern. Then the TextFields textProperty is filled
-     * with the corresponding value in sudoku.
-     */
-
-    private void rebuildSolvedSudokuField(TilePane tilePane, Sudoku sudoku) {
-        tilePane.getChildren().clear();
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                TextField numField = new OneNumberTextField();
-                numField.textProperty().set(sudoku.getValueOf(i, j));
-                numField.setMaxSize(40, 40);
-                numField.setMinSize(40, 40);
-                numField.setAlignment(Pos.CENTER);
-                int i2 = i;
-                int j2 = j;
-                if (j < 3 && i < 3) {
-                    numField.setStyle("-fx-background-color: #8c8c8c;");
-                }
-                if (j < 3 && i > 5) {
-                    numField.setStyle("-fx-background-color: #8c8c8c;");
-                }
-                if (j > 2 && j < 6 && i > 2 && i < 6) {
-                    numField.setStyle("-fx-background-color: #8c8c8c;");
-
-                }
-                if (j > 5 && i < 3) {
-                    numField.setStyle("-fx-background-color: #8c8c8c;");
-                }
-                if (j > 5 && i > 5) {
-                    numField.setStyle("-fx-background-color: #8c8c8c;");
-                }
-
-                numField.textProperty().addListener((observable, oldValue, newValue) -> {
-                    try {
-                        Integer.parseInt(newValue);
-                    } catch (NumberFormatException e) {
-                        newValue = "0";
-                    }
-                    sudoku.setValue(i2, j2, Integer.parseInt(newValue));
-                });
-                tilePane.getChildren().add(numField);
-            }
-        }
-
-    }
-
     public void start(Stage stage) {
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #e5e5e5;");
-        TilePane tilePane = new TilePane();
-        tilePane.setPadding(new Insets(10, 10, 10, 10));
-        tilePane.setHgap(7);
-        tilePane.setVgap(7);
 
-        newSudokuField(tilePane, sudoku);
-        root.setCenter(tilePane);
+        SudokuTilePane sudokuTilePane = new SudokuTilePane(sudoku);
+        root.setCenter(sudokuTilePane);
 
         Button clear = new Button("Clear");
         clear.setStyle("-fx-base: #f27474");
         clear.setMaxSize(80, 40);
         clear.setMinSize(80, 40);
         clear.setOnAction(event -> {
-            tilePane.getChildren().clear();
             sudoku.clear();
-            newSudokuField(tilePane, sudoku);
-
+            sudokuTilePane.refresh(true);
         });
 
         Button solve = new Button("Solve");
@@ -146,7 +47,7 @@ public class App extends Application {
         solve.setStyle("-fx-base: #82e584;");
         solve.setOnAction(event -> {
             if (sudoku.solve()) {
-                rebuildSolvedSudokuField(tilePane, sudoku);
+                sudokuTilePane.refresh(false);
             } else {
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Notification");
@@ -175,6 +76,6 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        Application.launch(args);
+        App.launch(args);
     }
 }

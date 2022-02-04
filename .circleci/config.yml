@@ -1,0 +1,43 @@
+workflows:
+  version: 2
+  flow:
+    jobs:
+      - setup
+      - scan:
+          requires:
+            - setup
+
+jobs:
+  setup:
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:11-jdk
+
+    working_directory: ~/repo
+
+    environment:
+      TERM: dumb
+
+    steps:
+      - checkout
+      - run: mvn dependency:tree -DoutputFile=.debricked-maven-dependencies.tgf -DoutputType=tgf
+      # it is important that the generated dependency tree is persisted and attached to the following scan step
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - **/.debricked-maven-dependencies.tgf
+
+  scan:
+    docker:
+      # circleci ignores the entrypoint of debricked-scan, so start the scan manually with a step
+      - image: debricked/debricked-scan
+    
+    working_directory: ~/repo
+    
+    # set debricked username and password as DEBRICKED_USERNAME and DEBRICKED_PASSWORD respectively,
+    # inside project settings, to avoid storing them in config
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - run: bash /circleci.sh

@@ -1,0 +1,14 @@
+2013613908 org.debricked:maven-lib:war:1.0
+1444635117 org.springframework:spring-web:jar:2.5.6:compile
+1699511597 commons-logging:commons-logging:jar:1.1.1:compile
+511357840 org.springframework:spring-beans:jar:2.5.6:compile
+1650299186 org.springframework:spring-context:jar:2.5.6:compile
+2004305265 aopalliance:aopalliance:jar:1.0:compile
+662409124 org.springframework:spring-core:jar:2.5.6:compile
+#
+1444635117 1699511597 compile
+1444635117 511357840 compile
+1650299186 2004305265 compile
+1444635117 1650299186 compile
+1444635117 662409124 compile
+2013613908 1444635117 compile

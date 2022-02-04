@@ -1,8 +1,8 @@
 version: 2.1
 
 # Set debricked username and password as DEBRICKED_USERNAME and DEBRICKED_PASSWORD respectively,
-# inside project settings, to avoid storing them in config. 
-# Another option is to set DEBRICKED_TOKEN https://debricked.com/docs/administration/access-tokens.html
+# inside project settings, to avoid storing them in config (https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-context)
+# You can also set DEBRICKED_TOKEN. Read more:  https://debricked.com/docs/administration/access-tokens.html
 
 jobs:
   build:

@@ -1,10 +1,8 @@
 version: 2.1
 
-workflows:
-  debricked-scan:
-    jobs:
-      - build
-      - scan
+# Set debricked username and password as DEBRICKED_USERNAME and DEBRICKED_PASSWORD respectively,
+# inside project settings, to avoid storing them in config. 
+# Another option is to set DEBRICKED_TOKEN https://debricked.com/docs/administration/access-tokens.html
 
 jobs:
   build:
@@ -30,11 +28,16 @@ jobs:
     
     working_directory: ~/repo
     
-    # Set debricked username and password as DEBRICKED_USERNAME and DEBRICKED_PASSWORD respectively,
-    # inside project settings, to avoid storing them in config. 
-    # Another option is to set DEBRICKED_TOKEN https://debricked.com/docs/administration/access-tokens.html
     steps:
       - checkout
       - attach_workspace:
           at: ~/repo
       - run: bash /circleci.sh
+
+workflows:
+  debricked-scan:
+    jobs:
+      - build
+      - scan:
+          requires:
+            - build

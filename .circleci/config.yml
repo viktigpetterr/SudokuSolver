@@ -1,9 +1,5 @@
 version: 2.1
 
-# Set debricked username and password as DEBRICKED_USERNAME and DEBRICKED_PASSWORD respectively,
-# inside project settings, to avoid storing them in config (https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-context)
-# You can also set DEBRICKED_TOKEN. Read more:  https://debricked.com/docs/administration/access-tokens.html
-
 jobs:
   build:
     docker:
@@ -19,7 +15,7 @@ jobs:
       - persist_to_workspace:
           root: ~/repo
           paths:
-            - .debricked-maven-dependencies.tgf
+            - '**.debricked-maven-dependencies.tgf'
             # Make sure to add all generated .debricked-maven-dependencies.tgf files
 
   scan:

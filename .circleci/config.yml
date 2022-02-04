@@ -15,11 +15,12 @@ jobs:
     steps:
       - checkout
       - run: mvn dependency:tree -DoutputFile=.debricked-maven-dependencies.tgf -DoutputType=tgf
-      # it is important that the generated dependency tree files are persisted and attached to the following scan step
+      # It is important that the generated dependency tree files are persisted and attached to the following scan step
       - persist_to_workspace:
           root: ~/repo
           paths:
-            - '*/.debricked-maven-dependencies.tgf'
+            - .debricked-maven-dependencies.tgf
+            # Make sure to add all generated .debricked-maven-dependencies.tgf files
 
   scan:
     docker:

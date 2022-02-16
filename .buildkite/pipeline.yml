@@ -7,13 +7,13 @@ steps:
       AUTHOR: "${BUILDKITE_BUILD_AUTHOR}"
     plugins:
       - docker#v3.2.0:
-          image: "debricked/debricked-scan"
-          workdir: /app
-          environment: 
-              - "DEBRICKED_TOKEN"
-              - "INTEGRATION_NAME=BuildKite"
-              - "REPOSITORY_URL"
-              - "COMMIT"
-              - "BRANCH"
-              - "AUTHOR"
-          entrypoint: ["/common.sh"]
+        image: "debricked/debricked-scan"
+        workdir: /app
+        environment: 
+            - "DEBRICKED_TOKEN"
+            - "INTEGRATION_NAME=BuildKite"
+            - "REPOSITORY_URL"
+            - "COMMIT"
+            - "BRANCH"
+            - "AUTHOR"
+        entrypoint: ["/common.sh"]

@@ -7,8 +7,8 @@ steps:
       AUTHOR: "${BUILDKITE_BUILD_AUTHOR}"
     plugins:
       - docker#v3.2.0:
+          entrypoint: ["/common.sh"]
           image: "debricked/debricked-scan"
-          always-pull: true
           environment: 
               - "DEBRICKED_TOKEN"
               - "INTEGRATION_NAME=BuildKite"
@@ -16,4 +16,4 @@ steps:
               - "COMMIT"
               - "BRANCH"
               - "AUTHOR"
-          entrypoint: ["/common.sh"]
+

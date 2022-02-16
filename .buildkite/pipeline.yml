@@ -16,4 +16,4 @@ steps:
               - "COMMIT"
               - "BRANCH"
               - "AUTHOR"
-          entrypoint: ["/common.sh"]
+          command: ["bash /common.sh"]

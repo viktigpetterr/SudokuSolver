@@ -6,7 +6,7 @@ steps:
           workdir: /app
           environment: 
               - "DEBRICKED_TOKEN"
-              - "REPOSITORY_URL=${BUILDKITE_COMMIT}
+              - "REPOSITORY_URL=${BUILDKITE_COMMIT}"
               - "COMMIT=${BUILDKITE_REPO}"
               - "INTEGRATION_NAME=BuildKite"
               - "BRANCH=${BUILDKITE_BRANCH}"

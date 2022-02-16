@@ -1,7 +1,7 @@
 steps:
   - label: ":shield: Debricked"
     env: 
-      REPOSITORY_URL: "${BUILDKITE_REPO}"
+      REPOSITORY: "${BUILDKITE_REPO}"
       COMMIT: "${BUILDKITE_COMMIT}"
       BRANCH: "${BUILDKITE_BRANCH}"
       AUTHOR: "${BUILDKITE_BUILD_AUTHOR}"
@@ -11,7 +11,7 @@ steps:
           environment: 
               - "DEBRICKED_TOKEN"
               - "INTEGRATION_NAME=BuildKite"
-              - "REPOSITORY_URL"
+              - "REPOSITORY"
               - "COMMIT"
               - "BRANCH"
               - "AUTHOR"

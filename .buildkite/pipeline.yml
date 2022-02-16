@@ -1,6 +1,6 @@
 steps:
   - label: ":tree: build .debricked-maven-dependencies.tgf"
-  - command: mvn dependency:tree -DoutputFile=.debricked-maven-dependencies.tgf -DoutputType=tgf
+    command: mvn dependency:tree -DoutputFile=.debricked-maven-dependencies.tgf -DoutputType=tgf
     plugins:
       - docker#v3.3.0:
           image: maven

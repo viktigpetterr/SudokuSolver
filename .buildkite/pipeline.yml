@@ -1,6 +1,8 @@
 steps:
-    plugins:
+    - plugins:
       - docker#v3.2.0:
           image: "debricked/debricked-scan"
           workdir: /app
+          environment: 
+            - "DEBRICKED_TOKEN"
           entrypoint: ["/common.sh"]

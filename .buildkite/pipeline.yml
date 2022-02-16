@@ -1,6 +1,6 @@
 steps:
 
-  - label: ":evergreentree: mvn dependency:tree"
+  - label: ":evergreen_tree: mvn dependency:tree"
     command: mvn dependency:tree -DoutputFile=.debricked-maven-dependencies.tgf -DoutputType=tgf
     plugins:
       - docker#v3.3.0:

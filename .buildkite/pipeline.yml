@@ -6,7 +6,7 @@ steps:
       - docker#v3.3.0:
           image: maven
           workdir: /app
-          artifact_paths: "**/.debricked-maven-dependencies.tgf"
+    artifact_paths: "**/.debricked-maven-dependencies.tgf"
           
   - label: ":shield: Debricked"
     env: 

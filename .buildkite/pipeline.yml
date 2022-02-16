@@ -1,5 +1,6 @@
 steps:
-    - plugins:
+    - label: ":debricked: Debricked" 
+      plugins:
         - docker#v3.2.0:
             image: "debricked/debricked-scan"
             workdir: /app

@@ -1,5 +1,0 @@
-name: "Debricked"
-description: "A software composition analysis"
-steps:
-    label: ":pipeline:"
-  - command: "buildkite-agent pipeline upload"

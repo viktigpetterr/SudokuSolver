@@ -1,14 +1,10 @@
 steps:
-  - label: ":tree: build .debricked-maven-dependencies.tgf"
+  - label: ":shield: Debricked"
     command: mvn dependency:tree -DoutputFile=.debricked-maven-dependencies.tgf -DoutputType=tgf
     plugins:
       - docker#v3.3.0:
           image: maven
           workdir: /app
-    artifact_paths:
-      - "**.debricked-maven-dependencies.tgf"
-      
-  - label: ":shield: Debricked"
     env: 
       REPOSITORY: "${BUILDKITE_REPO}"
       COMMIT: "${BUILDKITE_COMMIT}"

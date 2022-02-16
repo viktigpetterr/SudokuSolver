@@ -1,14 +1,19 @@
 steps:
-  - label: ":shield: Debricked" 
+  - label: ":shield: Debricked"
+    env: 
+      REPOSITORY_URL: "${BUILDKITE_REPO}"
+      COMMIT: "${BUILDKITE_COMMIT}"
+      BRANCH: "${BUILDKITE_BRANCH}"
+      AUTHOR: "${BUILDKITE_BUILD_AUTHOR}"
     plugins:
       - docker#v3.2.0:
           image: "debricked/debricked-scan"
           workdir: /app
           environment: 
               - "DEBRICKED_TOKEN"
-              - "REPOSITORY_URL=${BUILDKITE_REPO}"
-              - "COMMIT=${BUILDKITE_COMMIT}"
               - "INTEGRATION_NAME=BuildKite"
-              - "BRANCH=${BUILDKITE_BRANCH}"
-              - "AUTHOR=${BUILDKITE_BUILD_AUTHOR}"
+              - "REPOSITORY_URL"
+              - "COMMIT"
+              - "BRANCH"
+              - "AUTHOR"
           entrypoint: ["/common.sh"]

@@ -16,7 +16,7 @@ steps:
       - bash /buildkite.sh
     plugins:
       - docker#v3.3.0:
-          image: "debricked/debricked-scan"
+          image: "debricked/debricked-scan:buildkite-rc"
           mount-buildkite-agent: true
           environment: 
               - "DEBRICKED_TOKEN"

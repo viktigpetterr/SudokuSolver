@@ -12,7 +12,7 @@ steps:
   
   - label: ":shield: Debricked"
     command: 
-      - buildkite-agent artifact download "**.debricked-maven-dependencies.tgf" .
+      - buildkite-agent artifact download "**/.debricked-maven-dependencies.tgf" .
       - bash /buildkite.sh
     plugins:
       - docker#v3.3.0:

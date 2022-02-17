@@ -6,11 +6,11 @@ steps:
       - docker#v3.3.0:
           image: maven
           workdir: /app
-    artifact_paths: */.debricked-maven-dependencies.tgf
+    artifact_paths: "**/.debricked-maven-dependencies.tgf"
           
   - label: ":shield: Debricked"
     commands:
-      - buildkite-agent artifact download "*.debricked-maven-dependencies.tgf" .
+      - buildkite-agent artifact download *.debricked-maven-dependencies.tgf .
     env: 
       REPOSITORY: "${BUILDKITE_REPO}"
       COMMIT: "${BUILDKITE_COMMIT}"

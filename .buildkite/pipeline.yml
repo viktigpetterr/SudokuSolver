@@ -10,7 +10,7 @@ steps:
   - wait       
   - label: ":shield: Debricked"
     commands:
-      - buildkite-agent artifact search "*" -format "%p\n"
+      - buildkite-agent artifact search "*"
     env: 
       REPOSITORY: "${BUILDKITE_REPO}"
       COMMIT: "${BUILDKITE_COMMIT}"

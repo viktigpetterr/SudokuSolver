@@ -9,8 +9,6 @@ steps:
     artifact_paths: "**/.debricked-maven-dependencies.tgf"
   - wait       
   - label: ":shield: Debricked"
-    commands:
-      - ls -al
     env: 
       REPOSITORY: "${BUILDKITE_REPO}"
       COMMIT: "${BUILDKITE_COMMIT}"
@@ -26,5 +24,4 @@ steps:
               - "COMMIT"
               - "BRANCH"
               - "AUTHOR"
-          entrypoint: ""
-
+        command: [ "ls", "-al" ]

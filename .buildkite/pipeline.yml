@@ -24,4 +24,5 @@ steps:
               - "COMMIT"
               - "BRANCH"
               - "AUTHOR"
+          entrypoint: ""
           command: [ "ls", "-al" ]

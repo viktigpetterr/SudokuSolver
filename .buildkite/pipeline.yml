@@ -11,6 +11,7 @@ steps:
   - wait
   
   - label: ":shield: Debricked"
+    command: ls -al
     env: 
       REPOSITORY: "${BUILDKITE_REPO}"
       COMMIT: "${BUILDKITE_COMMIT}"
@@ -19,6 +20,7 @@ steps:
     plugins:
       - docker#v3.3.0:
           image: "debricked/debricked-scan"
+          mount-buildkite-agent: true
           environment: 
               - "DEBRICKED_TOKEN"
               - "INTEGRATION_NAME=BuildKite"
@@ -27,4 +29,4 @@ steps:
               - "BRANCH"
               - "AUTHOR"
           entrypoint: ""
-          command: [ "ls", "-al" ]
+          

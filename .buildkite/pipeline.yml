@@ -24,4 +24,4 @@ steps:
               - "COMMIT"
               - "BRANCH"
               - "AUTHOR"
-        command: [ "ls", "-al" ]
+          command: [ "ls", "-al" ]

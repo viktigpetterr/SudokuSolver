@@ -12,13 +12,8 @@ steps:
   
   - label: ":shield: Debricked"
     command: 
-      - buildkite-agent artifact download "*.debricked-maven-dependencies.tgf" .
-      - bash /common.sh
-    env: 
-      REPOSITORY: "${BUILDKITE_REPO}"
-      COMMIT: "${BUILDKITE_COMMIT}"
-      BRANCH: "${BUILDKITE_BRANCH}"
-      AUTHOR: "${BUILDKITE_BUILD_AUTHOR}"
+      - buildkite-agent artifact download "**.debricked-maven-dependencies.tgf" .
+      - bash /buildkite.sh
     plugins:
       - docker#v3.3.0:
           image: "debricked/debricked-scan"
@@ -26,9 +21,8 @@ steps:
           environment: 
               - "DEBRICKED_TOKEN"
               - "INTEGRATION_NAME=BuildKite"
-              - "REPOSITORY"
-              - "COMMIT"
-              - "BRANCH"
-              - "AUTHOR"
+              - "BUILDKITE_REPO"
+              - "BUILDKITE_COMMIT"
+              - "BUILDKITE_BRANCH"
           entrypoint: ""
           shell : ["/bin/sh", "-e", "-c"]

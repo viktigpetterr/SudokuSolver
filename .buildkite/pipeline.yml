@@ -10,7 +10,7 @@ steps:
           
   - label: ":shield: Debricked"
     commands:
-      - buildkite-agent artifact download ".debricked-maven-dependencies.tgf" .
+      - buildkite-agent artifact download "*.debricked-maven-dependencies.tgf" .
     env: 
       REPOSITORY: "${BUILDKITE_REPO}"
       COMMIT: "${BUILDKITE_COMMIT}"

@@ -13,6 +13,7 @@ steps:
   - label: ":shield: Debricked"
     command: 
       - buildkite-agent artifact download "*.debricked-maven-dependencies.tgf" .
+      - ls -al
       - bash /common.sh
     env: 
       REPOSITORY: "${BUILDKITE_REPO}"

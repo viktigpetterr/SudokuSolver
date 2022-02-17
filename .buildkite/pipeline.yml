@@ -20,7 +20,6 @@ steps:
           mount-buildkite-agent: true
           environment: 
               - "DEBRICKED_TOKEN"
-              - "INTEGRATION_NAME=BuildKite"
               - "BUILDKITE_REPO"
               - "BUILDKITE_COMMIT"
               - "BUILDKITE_BRANCH"

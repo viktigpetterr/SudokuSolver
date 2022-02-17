@@ -11,6 +11,9 @@ steps:
   - wait
   
   - label: ":shield: Debricked"
+    command: 
+      - buildkite-agent artifact download "*.debricked-maven-dependencies.tgf"
+      - bash /common.sh
     env: 
       REPOSITORY: "${BUILDKITE_REPO}"
       COMMIT: "${BUILDKITE_COMMIT}"
@@ -28,5 +31,3 @@ steps:
               - "BRANCH"
               - "AUTHOR"
           entrypoint: ""
-          command: ["buildkite-agent", "artifact", "download", "**.debricked-maven-dependencies.tgf", ".", "&&", "bash", "/common.sh"]
-          

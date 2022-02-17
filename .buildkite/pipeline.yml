@@ -7,7 +7,7 @@ steps:
           image: maven
           workdir: /app
     artifact_paths: "**/.debricked-maven-dependencies.tgf"
-          
+  - wait       
   - label: ":shield: Debricked"
     commands:
       - buildkite-agent artifact search "*" -format "%p\n"

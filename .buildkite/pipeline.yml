@@ -5,13 +5,11 @@ steps:
     plugins:
       - docker#v3.3.0:
           image: maven
-          # Cache maven dependencies
-          # Mount the application source and target directories
-          volumes: ["$HOME/.m2:/root/.m2", "..:/app"]
           workdir: /app
-
     artifact_paths: "**/.debricked-maven-dependencies.tgf"
-  - wait       
+    
+  - wait
+  
   - label: ":shield: Debricked"
     env: 
       REPOSITORY: "${BUILDKITE_REPO}"

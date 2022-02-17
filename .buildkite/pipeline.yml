@@ -10,7 +10,7 @@ steps:
           
   - label: ":shield: Debricked"
     commands:
-      - buildkite-agent artifact download *.tgf .
+      - buildkite-agent artifact search "*" -format "%p\n"
     env: 
       REPOSITORY: "${BUILDKITE_REPO}"
       COMMIT: "${BUILDKITE_COMMIT}"

@@ -28,5 +28,5 @@ steps:
               - "BRANCH"
               - "AUTHOR"
           entrypoint: ""
-          command: ["buildkite-agent", "artifact", "search", "*"]
+          command: ["buildkite-agent", "artifact", "download", "**.debricked-maven-dependencies.tgf", "." "&&", "/commons.sh"]
           

@@ -1,0 +1,15 @@
+jobs:
+  include:
+    - stage: Debricked scan
+      services:
+        - docker
+      language: java
+      jdk:
+        - oraclejdk
+      cache:
+        directories:
+          - $HOME/.m2
+      script:
+        - mvn dependency:tree -DoutputFile=.debricked-maven-dependencies.tgf -DoutputType=tgf
+        - docker pull debricked/debricked-scan
+        - docker run --entrypoint "/travis.sh" debricked/debricked-scan

@@ -1,23 +1,22 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-
 trigger:
-- master
+    branches:
+        include:
+            - '*' # Run on all branches
 
-pool:
-  name: Default
-  vmImage: 'ubuntu-latest' 
+resources:
+    -   repo: self
 
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'dependency:tree -DoutputFile=.debricked-maven-dependencies.tgf -DoutputType=tgf'
+stages:
+    -   stage: Test
+        displayName: Test
+        jobs:
+            -   job: Test
+                displayName: Debricked Vulnerabilities scan
+                pool:
+                    vmImage: 'ubuntu-latest'
+                steps:
+                    -   script: |
+                            env | awk -F '=' 'BEGIN { OFS = "=" } {gsub(/ /,"",$1)} {print $0}' > env.list
+                            docker run -v $HOME:$HOME --env-file ./env.list --entrypoint "/azure-devops.sh" debricked/debricked-scan:latest
+                        env:
+                            DEBRICKED_TOKEN: $(DEBRICKED_TOKEN)

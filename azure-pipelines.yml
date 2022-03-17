@@ -13,6 +13,7 @@ stages:
             -   job: Test
                 displayName: Debricked Vulnerabilities scan
                 pool:
+                    name: Deafult 
                     vmImage: 'ubuntu-latest'
                 steps:
                     -   script: |

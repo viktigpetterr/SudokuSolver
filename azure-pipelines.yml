@@ -14,8 +14,6 @@ steps:
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.11'
-    jdkArchitectureOption: 'x64'
-    goals: 'dependency:tree -DoutputFile=.debricked-maven-dependencies.tgf -DoutputType=tgf'
+    goals: 'dependency:tree'
+    options: '-DoutputFile=.debricked-maven-dependencies.tgf -DoutputType=tgf'

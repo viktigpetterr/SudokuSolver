@@ -1,23 +1,22 @@
 trigger:
-    branches:
-        include:
-            - '*' # Run on all branches
+  branches:
+    include:
+      - '*' # Run on all branches
 
 resources:
-    -   repo: self
+  - repo: self
 
 stages:
-    -   stage: Test
-        displayName: Test
-        jobs:
-            -   job: Test
-                displayName: Debricked Vulnerabilities scan
-                pool:
-                    name: Default 
-                    vmImage: 'ubuntu-latest'
-                steps:
-                    -   script: |
-                            env | awk -F '=' 'BEGIN { OFS = "=" } {gsub(/ /,"",$1)} {print $0}' > env.list
-                            docker run -v $HOME:$HOME --env-file ./env.list --entrypoint "/azure-devops.sh" debricked/debricked-scan:latest
-                        env:
-                            DEBRICKED_TOKEN: $(DEBRICKED_TOKEN)
+- stage: debricked
+  jobs:
+  - job: debricked
+    displayName: Debricked scan
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - script: |
+          mvn dependency:tree -DoutputFile=.debricked-maven-dependencies.tgf -DoutputType=tgf
+          env | awk -F '=' 'BEGIN { OFS = "=" } {gsub(/ /,"",$1)} {print $0}' > env.list
+          docker run -v $HOME:$HOME --env-file ./env.list --entrypoint "/azure-devops.sh" debricked/debricked-scan:latest
+        env:
+          DEBRICKED_TOKEN: $(DEBRICKED_TOKEN)
